@@ -40,41 +40,39 @@ const inicialCards  = [
         link: 'https://images.unsplash.com/photo-1674837594030-eac689afe930?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDExM3x4SHhZVE1ITGdPY3x8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60'
     }
 ];
-function createNewDiv (names, links) {
-    const newDiv = document.createElement('div');
-    newDiv.className = 'place-card';
-    const newDivImage = document.createElement('div');
-    newDivImage.className = 'place-card__image';
-    const newButtonDelete = document.createElement('button');
-    newButtonDelete.className = 'place-card__delete-icon';
-    const newDivDescription = document.createElement('div');
-    newDivDescription.className = 'place-card__description';
-    const newH3 = document.createElement('h3');
-    newH3.className = 'place-card__name';
-    const newButtonLike = document.createElement('button');
-    newButtonLike.className = 'place-card__like-icon';
-    newButtonLike.addEventListener('click', function(event) {
-        newButtonLike.classList.toggle('place-card__like-icon_liked');
+function createNewCard (names, links) {
+    const card = document.createElement('div');
+    card.className = 'place-card';
+    const cardImage = document.createElement('div');
+    cardImage.className = 'place-card__image';
+    const cardButtonDelete = document.createElement('button');
+    cardButtonDelete.className = 'place-card__delete-icon';
+    cardButtonDelete.addEventListener('click', function funcListener(event){
+        inPlacesList.removeChild(card);
+        cardButtonDelete.removeEventListener('click', funcListener);
     });
-    newButtonDelete.addEventListener('click', function(event){
-        inPlacecList.removeChild(newDiv);
+    const cardDescription = document.createElement('div');
+    cardDescription.className = 'place-card__description';
+    const cardH3 = document.createElement('h3');
+    cardH3.className = 'place-card__name';
+    cardH3.textContent = names;
+    const cardButtonLike = document.createElement('button');
+    cardButtonLike.className = 'place-card__like-icon';
+    cardButtonLike.addEventListener('click', function(event) {
+        cardButtonLike.classList.toggle('place-card__like-icon_liked');
     });
-    newDiv.appendChild(newDivImage);
-    newDiv.appendChild(newDivDescription);
-    newDivImage.appendChild(newButtonDelete);
-    newDivDescription.appendChild(newH3);
-    newDivDescription.appendChild(newButtonLike);
-    newDivImage.style.backgroundImage = `url(${links})`;
-    newH3.textContent = names;
-    console.log(newDiv);
-    const inPlacecList = document.querySelector('div.places-list.root__section');
-    return inPlacecList.appendChild(newDiv);
+    card.appendChild(cardImage);
+    card.appendChild(cardDescription);
+    cardImage.appendChild(cardButtonDelete);
+    cardDescription.appendChild(cardH3);
+    cardDescription.appendChild(cardButtonLike);
+    cardImage.style.backgroundImage = `url(${links})`;
+    const inPlacesList = document.querySelector('div.places-list.root__section');
+    return inPlacesList.appendChild(card);
 };
-inicialCards.forEach((num) => {
-    createNewDiv(num['name'], num['link']);
-    
+inicialCards.forEach((number) => {
+    createNewCard(number['name'], number['link']);
 });
-
 const clickButtonOpen = document.querySelector('button.button.user-info__button');
 const popUp = document.querySelector('.popup');
 clickButtonOpen.addEventListener('click', function(event) {
@@ -84,12 +82,11 @@ const clickButtonClose = document.querySelector('.popup__close');
 clickButtonClose.addEventListener('click', function(event) {
     popUp.classList.toggle('popup_is-opened');
 });
-const formName = document.querySelector('.popup__input.popup__input_type_name');
-const formLink = document.querySelector('.popup__input.popup__input_type_link-url')
-console.log(formName.value);
+const formName = document.forms.new.name;
+const formLink = document.forms.new.link;
 const clickNewCard = document.querySelector('.button.popup__button');
 clickNewCard.addEventListener('click', function(event) {
-    createNewDiv(formName.value, formLink.value);
     event.preventDefault();
+    createNewCard(formName.value, formLink.value);
     popUp.classList.toggle('popup_is-opened');
 });
