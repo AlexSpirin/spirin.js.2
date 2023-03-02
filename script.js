@@ -50,6 +50,7 @@ function createNewCard (names, links) {
     cardButtonDelete.addEventListener('click', function funcListener(event){
         inPlacesList.removeChild(card);
         cardButtonDelete.removeEventListener('click', funcListener);
+        cardButtonLike.removeEventListener('click', funcListener)
     });
     const cardDescription = document.createElement('div');
     cardDescription.className = 'place-card__description';
@@ -58,7 +59,7 @@ function createNewCard (names, links) {
     cardH3.textContent = names;
     const cardButtonLike = document.createElement('button');
     cardButtonLike.className = 'place-card__like-icon';
-    cardButtonLike.addEventListener('click', function(event) {
+    cardButtonLike.addEventListener('click', function funcListener(event) {
         cardButtonLike.classList.toggle('place-card__like-icon_liked');
     });
     card.appendChild(cardImage);
@@ -70,8 +71,8 @@ function createNewCard (names, links) {
     const inPlacesList = document.querySelector('div.places-list.root__section');
     return inPlacesList.appendChild(card);
 };
-inicialCards.forEach((number) => {
-    createNewCard(number['name'], number['link']);
+inicialCards.forEach((objectValue) => {
+    createNewCard(objectValue['name'], objectValue['link']);
 });
 const clickButtonOpen = document.querySelector('button.button.user-info__button');
 const popUp = document.querySelector('.popup');
