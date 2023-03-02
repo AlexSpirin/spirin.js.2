@@ -71,8 +71,8 @@ function createNewCard (names, links) {
     const inPlacesList = document.querySelector('div.places-list.root__section');
     return inPlacesList.appendChild(card);
 };
-inicialCards.forEach((objectValue) => {
-    createNewCard(objectValue['name'], objectValue['link']);
+inicialCards.forEach((element) => {
+    createNewCard(element['name'], element['link']);
 });
 const clickButtonOpen = document.querySelector('button.button.user-info__button');
 const popUp = document.querySelector('.popup');
