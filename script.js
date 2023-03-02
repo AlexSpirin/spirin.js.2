@@ -39,9 +39,9 @@ const inicialCards  = [
         name: 'Кафе',
         link: 'https://images.unsplash.com/photo-1674837594030-eac689afe930?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDExM3x4SHhZVE1ITGdPY3x8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60'
     }
-];
-function createNewDiv (names, links) {
-    const newDiv = document.createElement('div');
+]; //наверное все же initial
+function createNewDiv (names, links) { // Доебусь до нейминга))) дивов может быть много я бы предложил заменить Div на Card
+    const newDiv = document.createElement('div'); // Зачем везде по функции приставка new? можно так же использовать Card: cardImage cardTitle и т.д. и т.п.
     newDiv.className = 'place-card';
     const newDivImage = document.createElement('div');
     newDivImage.className = 'place-card__image';
@@ -57,22 +57,22 @@ function createNewDiv (names, links) {
         newButtonLike.classList.toggle('place-card__like-icon_liked');
     });
     newButtonDelete.addEventListener('click', function(event){
-        inPlacecList.removeChild(newDiv);
+        inPlacecList.removeChild(newDiv); // при удалении карточки лучше снимать с нее слушатели они не исчезают и продолжают слушать то чего нет забивая оперативку
     });
     newDiv.appendChild(newDivImage);
     newDiv.appendChild(newDivDescription);
     newDivImage.appendChild(newButtonDelete);
     newDivDescription.appendChild(newH3);
     newDivDescription.appendChild(newButtonLike);
-    newDivImage.style.backgroundImage = `url(${links})`;
+    newDivImage.style.backgroundImage = `url(${links})`; // здесь и строчка ниже, почему бы не заполнить элемент сразу после его создания? вся информация будет сгруппирована не придется прыгать туда сюда глазами
     newH3.textContent = names;
-    console.log(newDiv);
-    const inPlacecList = document.querySelector('div.places-list.root__section');
+    console.log(newDiv); // логи надо чисть
+    const inPlacecList = document.querySelector('div.places-list.root__section'); // наверное имелось ввиду Places (здесь и везде по коду)
     return inPlacecList.appendChild(newDiv);
 };
-inicialCards.forEach((num) => {
+inicialCards.forEach((num) => { // кто такой num? number? постарайся давать переменным понятные имена
     createNewDiv(num['name'], num['link']);
-    
+    // пустые строки тоже надо чистить
 });
 
 const clickButtonOpen = document.querySelector('button.button.user-info__button');
@@ -84,12 +84,14 @@ const clickButtonClose = document.querySelector('.popup__close');
 clickButtonClose.addEventListener('click', function(event) {
     popUp.classList.toggle('popup_is-opened');
 });
+// у тебя у формы есть имя, постарайся найти форму через него, а инпуты уже искать внутри формаы, операция поиска по всей странице
+// очень трудозатратна, это не будет ощутимо сейчас, но на больших проектах может быть критичным
 const formName = document.querySelector('.popup__input.popup__input_type_name');
 const formLink = document.querySelector('.popup__input.popup__input_type_link-url')
-console.log(formName.value);
+console.log(formName.value);// логи надо чисть х2
 const clickNewCard = document.querySelector('.button.popup__button');
 clickNewCard.addEventListener('click', function(event) {
     createNewDiv(formName.value, formLink.value);
-    event.preventDefault();
+    event.preventDefault(); // дефолтное поведение сбрасывается вначале функции
     popUp.classList.toggle('popup_is-opened');
 });
