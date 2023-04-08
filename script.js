@@ -45,12 +45,22 @@ function createNewCard (names, links) {
     card.className = 'place-card';
     const cardImage = document.createElement('div');
     cardImage.className = 'place-card__image';
+    const popupImage = document.querySelector('.popup-image');
+    cardImage.style.backgroundImage = `url(${links})`;
+    const popupImageOpened = document.querySelector('.popup-image__opened');
+    let popupImageSrc = popupImageOpened.src;
+    cardImage.addEventListener('click', function(event) {
+        document.getElementsByClassName('.popup-image__opened').src = cardImage.style.backgroundImage.slice(5,-2);
+        popupImage.classList.add('popup-image_is-opened');
+        console.log(popupImage);
+    });
     const cardButtonDelete = document.createElement('button');
     cardButtonDelete.className = 'place-card__delete-icon';
     cardButtonDelete.addEventListener('click', function funcListener(event){
         inPlacesList.removeChild(card);
         cardButtonDelete.removeEventListener('click', funcListener);
-        cardButtonLike.removeEventListener('click', funcListener)
+        cardButtonLike.removeEventListener('click', funcListener);
+        event.stopImmediatePropagation();
     });
     const cardDescription = document.createElement('div');
     cardDescription.className = 'place-card__description';
@@ -67,7 +77,6 @@ function createNewCard (names, links) {
     cardImage.appendChild(cardButtonDelete);
     cardDescription.appendChild(cardH3);
     cardDescription.appendChild(cardButtonLike);
-    cardImage.style.backgroundImage = `url(${links})`;
     const inPlacesList = document.querySelector('div.places-list.root__section');
     return inPlacesList.appendChild(card);
 };
@@ -90,4 +99,24 @@ clickNewCard.addEventListener('click', function(event) {
     event.preventDefault();
     createNewCard(formName.value, formLink.value);
     popUp.classList.toggle('popup_is-opened');
+});
+const clickEditButtonOpen = document.querySelector('.user-info__button-edit');
+const popUpEdit = document.querySelector('.popup-edit');
+clickEditButtonOpen.addEventListener('click', function(event) {
+    popUpEdit.classList.add('popup-edit_is-opened');
+});
+const clickEditButtonClose = document.querySelector('.popup-edit__close');
+clickEditButtonClose.addEventListener('click', function (event) {
+    popUpEdit.classList.toggle('popup-edit_is-opened');
+});
+const formEditName = document.forms.edit.editName;
+const formEditInfo = document.forms.edit.editInfo;
+const newName = document.querySelector('.user-info__name');
+const newJob = document.querySelector('.user-info__job');
+const clickRename = document.querySelector('button.popup-edit__button');
+clickRename.addEventListener('click', function(event) {
+    event.preventDefault();
+    newName.textContent = formEditName.value;
+    newJob.textContent = formEditInfo.value;
+    popUpEdit.classList.toggle('popup-edit_is-opened');
 });

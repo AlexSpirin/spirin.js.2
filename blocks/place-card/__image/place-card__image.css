@@ -5,6 +5,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   position: relative;
+  cursor: pointer;
 }
 
 .place-card__image::after {
@@ -15,4 +16,5 @@
   background-color: rgba(0, 0, 0, .3);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  cursor: pointer;
 }
