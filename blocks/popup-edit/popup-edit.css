@@ -6,7 +6,9 @@
 @import url(./__button/popup-edit__button.css);
 @import url(./_is-opened/popup-edit_is-opened.css);
 @import url(./__valid-name/popup-edit__valid-name.css);
-@import url(./__valid-info/popup-edit__valid-info.css);
+@import url(./__valid-job/popup-edit__valid-job.css);
+@import url(./__form/__text-message-valid-edit-name/__text-message-valid-edit-name.css);
+@import url(./__form/__text-message-valid-edit-info/__text-message-valid-edit-name.css);
 
 .popup-edit {
   position: fixed;
