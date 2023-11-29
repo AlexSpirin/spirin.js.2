@@ -47,12 +47,10 @@ function createNewCard (names, links) {
     cardImage.className = 'place-card__image';
     const popupImage = document.querySelector('.popup-image');
     cardImage.style.backgroundImage = `url(${links})`;
-    const popupImageOpened = document.querySelector('.popup-image__opened');
-    let popupImageSrc = popupImageOpened.src;
+    const popupImageSrc = document.querySelector('.popup-image__image');
     cardImage.addEventListener('click', function(event) {
-        document.getElementsByClassName('.popup-image__opened').src = cardImage.style.backgroundImage.slice(5,-2);
         popupImage.classList.add('popup-image_is-opened');
-        console.log(popupImage);
+        popupImageSrc.src = links;
     });
     const cardButtonDelete = document.createElement('button');
     cardButtonDelete.className = 'place-card__delete-icon';
@@ -120,3 +118,23 @@ clickRename.addEventListener('click', function(event) {
     newJob.textContent = formEditInfo.value;
     popUpEdit.classList.toggle('popup-edit_is-opened');
 });
+const popupImageClose = document.querySelector('.popup-image__close');
+const popupImage = document.querySelector('.popup-image');
+popupImageClose.addEventListener('click', function funcListener(event) {
+    popupImage.classList.toggle('popup-image_is-opened');
+});
+formEditName.addEventListener('keydown', function(event) {
+    IsValidate(formEditName);
+    });
+    function IsValidate(input) {
+       if (input.value.length < 2 || input.value.length > 31) {
+           const formSelector = document.querySelector('.popup-edit__form');
+           const errorMessadge = document.createElement('p');
+           errorMessadge.className = 'popup-edit__valid-name';
+           formSelector.appendChild(errorMessadge);
+           errorMessadge.textContent = 'Должно быть от 2 до 30 символов';
+           console.log(input.value)
+       } else {
+       }
+      return input.checkValidity()
+    };

@@ -40,15 +40,17 @@
         <img src="./images/close.svg" alt="" class="popup-edit__close">
         <h3 class="popup-edit__title">Редактировать профиль</h3>
         <form class="popup-edit__form" name="edit">
-            <input type="text" name="editName" class="popup-edit__input popup__input_type_edit-name" placeholder="Имя">
-            <input type="text" name="editInfo" class="popup-edit__input popup__input_type_link-edit-info" placeholder="О себе">
+            <input type="text" name="editName" class="popup-edit__input popup__input_type_edit-name" placeholder="Имя" required minlength="2" maxlength="30">
+            <input type="text" name="editInfo" class="popup-edit__input popup__input_type_link-edit-info" placeholder="О себе" required minlength="2" maxlength="30">
             <button type class="button popup-edit__button">Сохранить</button>
         </form>
       </div>
     </div>
     <div class="popup-image">
-      <img src="./images/close.svg" alt="" class="popup-image__close">
-      <img src="" alt="" class="popup-image__opened">
+      <div class="popup-image__image-open">
+        <img src="./images/close.svg" alt="" class="popup-image__close">
+        <img src="./images/avatar.jpg" alt="" class="popup-image__image">
+      </div>
     </div>
   </div>
   <script src="script.js"></script>
