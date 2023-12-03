@@ -7,8 +7,9 @@
 @import url(./_is-opened/popup-edit_is-opened.css);
 @import url(./__valid-name/popup-edit__valid-name.css);
 @import url(./__valid-job/popup-edit__valid-job.css);
-@import url(./__form/__text-message-valid-edit-name/__text-message-valid-edit-name.css);
-@import url(./__form/__text-message-valid-edit-info/__text-message-valid-edit-name.css);
+@import url(./__form/popup-edit__form__text-message-valid-edit-info.css);
+@import url(./__form/popup-edit__form__text-message-valid-edit-name.css);
+@import url(./_valid-button/popup-edit__button.valid-button.css);
 
 .popup-edit {
   position: fixed;

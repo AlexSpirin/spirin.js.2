@@ -1,7 +1,7 @@
-.popup-edit__form__text-message-valid-edit-info{
+.popup-edit__form__text-message-valid-edit-info {
     color: red;
     display: flex;
     position: fixed;
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 14px;
 }
