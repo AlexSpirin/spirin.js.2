@@ -120,63 +120,23 @@ const clickRenamePopupEdit = document.querySelector('button.popup-edit__button')
 const formEditNameErrorMessage = document.querySelector('popup-edit__form');
 clickRenamePopupEdit.addEventListener('click', function(event) {
     event.preventDefault();
-    funcValidPopupEdit(formEditName.value, formEditInfo.value);
+    const validFormName = formEditName.validity;
+    const validFormInfo = formEditInfo.validity;
+    if(validFormInfo.valueMissing || validFormInfo.patternMismatch || validFormName.valueMissing || validFormName.patternMismatch) {
+        setInputAllEvent();
+        clickRenamePopupEdit.classList.toggle('valid-button')
+    } else{
+        newJob.textContent = formEditInfo.value;
+        newName.textContent = formEditName.value;
+        popUpEdit.classList.toggle('popup-edit_is-opened');
+    };
 });
-function funcValidPopupEdit(name, info) {
-    const textValidMessageEditName = document.querySelector('.popup-edit__form__text-message-valid-edit-name');
-    const textValidMessageEditInfo = document.querySelector('.popup-edit__form__text-message-valid-edit-info');
-    if ( name.length == 0) {
-        textValidMessageEditName.textContent ='Это обязательное поле';
-    };
-    if (name.length == 1 || name.length > 30){
-        textValidMessageEditName.textContent = 'Должно быть от 2 до 30 символов';
-    };
-    if (name.length > 1 && name.length < 31) {
-        if (info.length > 1 && info.length < 31) {
-            funcRenamePopupEdit();
-        };
-    };
-    if (info.length == 0) {
-        textValidMessageEditInfo.textContent = 'Это обязательное поле';
-    };
-    if (info.length == 1 || info.length > 30) {
-        textValidMessageEditInfo.textContent = 'Должно быть от 2 до 30 символов';
-    };
-    funcDisEneButtonPopupEdit();
-    funcValidChangePopupEditInput();
+const messageErrorEditName = document.querySelector('.popup-edit__form__text-message-valid-edit-name');
+const messageErrorEditInfo = document.querySelector('.popup-edit__form__text-message-valid-edit-info');
+function setInputAllEvent() {
+    const input = document.querySelector('input')
+    input.addEventListener('change', funcClickValidEditForm);
 };
-function funcRenamePopupEdit () {
-    newName.textContent = formEditName.value;
-    newJob.textContent = formEditInfo.value;
-    popUpEdit.classList.toggle('popup-edit_is-opened');
-};
-function funcDisEneButtonPopupEdit () {
-    const validButton = document.querySelector('button.popup-edit__button');
-    validButton.classList.toggle('valid-button');
-    validButton.toggleAttribute('disabled', 'disabled');
-};
-let validValueEditName = false;
-let validValueEditInfo = false;
-function funcValidChangePopupEditInput() {
-    const textValidMessageEditName = document.querySelector('.popup-edit__form__text-message-valid-edit-name');
-    const textValidMessageEditInfo = document.querySelector('.popup-edit__form__text-message-valid-edit-info');
-    formEditName.addEventListener('change', function(event) {
-        if (formEditName.value.length > 1 && formEditName.value.length < 31) {
-            textValidMessageEditName.textContent = '';
-            validValueEditName = true;
-            validCheckButtonPopupEdit();
-        };
-    });
-    formEditInfo.addEventListener('change', function(event) {
-        if (formEditInfo.value.length > 1 && formEditInfo.value.length < 31) {
-            textValidMessageEditInfo.textContent = '';
-            validValueEditInfo = true;
-            validCheckButtonPopupEdit ();
-        };
-    });
-};
-function validCheckButtonPopupEdit () {
-    if (validValueEditName == true && validValueEditInfo == true) {
-        funcDisEneButtonPopupEdit();
-    };
-};
+function funcClickValidEditForm() {
+    console.log('ты хуй')
+}

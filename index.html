@@ -40,9 +40,9 @@
         <img src="./images/close.svg" alt="" class="popup-edit__close">
         <h3 class="popup-edit__title">Редактировать профиль</h3>
         <form class="popup-edit__form" name="edit">
-            <input type="text" name="editName" class="popup-edit__input popup__input_type_edit-name" placeholder="Имя" >
+            <input type="text" name="editName" class="popup-edit__input popup__input_type_edit-name" placeholder="Имя" pattern=".{2,30}" required >
             <p class="popup-edit__form__text-message-valid-edit-name"></p>
-            <input type="text" name="editInfo" class="popup-edit__input popup__input_type_edit-info" placeholder="О себе" >
+            <input type="text" name="editInfo" class="popup-edit__input popup__input_type_edit-info" placeholder="О себе" pattern=".{2,30}" required >
             <p class="popup-edit__form__text-message-valid-edit-info"></p>
             <button type class="button popup-edit__button">Сохранить</button>
         </form>
