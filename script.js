@@ -81,62 +81,88 @@ function createNewCard (names, links) {
 inicialCards.forEach((element) => {
     createNewCard(element['name'], element['link']);
 });
-const clickButtonOpen = document.querySelector('button.button.user-info__button');
-const popUp = document.querySelector('.popup');
-clickButtonOpen.addEventListener('click', function(event) {
-    popUp.classList.add('popup_is-opened');
+
+const userInfoButtonOpen = document.querySelector('button.button.user-info__button');
+const popUpNew = document.querySelector('.popup');
+userInfoButtonOpen.addEventListener('click', function(event) {
+    popUpNew.classList.add('popup_is-opened');
 });
-const clickButtonClose = document.querySelector('.popup__close');
-clickButtonClose.addEventListener('click', function(event) {
-    popUp.classList.toggle('popup_is-opened');
+const userInfoButtonClose = document.querySelector('.popup__close');
+userInfoButtonClose.addEventListener('click', function(event) {
+    popUpNew.classList.toggle('popup_is-opened');
 });
+
 const formName = document.forms.new.name;
 const formLink = document.forms.new.link;
-const clickNewCard = document.querySelector('.button.popup__button');
-clickNewCard.addEventListener('click', function(event) {
+const newCardSubmitButton = document.querySelector('.button.popup__button');
+newCardSubmitButton.addEventListener('click', function(event) {
     event.preventDefault();
     createNewCard(formName.value, formLink.value);
-    popUp.classList.toggle('popup_is-opened');
+    popUpNew.classList.toggle('popup_is-opened');
 });
-const clickEditButtonOpen = document.querySelector('.user-info__button-edit');
+
+const editButtonOpen = document.querySelector('.user-info__button-edit');
 const popUpEdit = document.querySelector('.popup-edit');
-clickEditButtonOpen.addEventListener('click', function(event) {
+editButtonOpen.addEventListener('click', function(event) {
     popUpEdit.classList.add('popup-edit_is-opened');
 });
-const clickEditButtonClose = document.querySelector('.popup-edit__close');
-clickEditButtonClose.addEventListener('click', function (event) {
+const editButtonClose = document.querySelector('.popup-edit__close');
+editButtonClose.addEventListener('click', function (event) {
     popUpEdit.classList.toggle('popup-edit_is-opened');
 });
-const popupImageClose = document.querySelector('.popup-image__close');
+
+const popupImageButtonClose = document.querySelector('.popup-image__close');
 const popupImage = document.querySelector('.popup-image');
-popupImageClose.addEventListener('click', function funcListener(event) {
+popupImageButtonClose.addEventListener('click', function funcListener(event) {
     popupImage.classList.toggle('popup-image_is-opened');
-}); 
-const formEditName = document.forms.edit.editName;
-const formEditInfo = document.forms.edit.editInfo;
-const newName = document.querySelector('.user-info__name');
-const newJob = document.querySelector('.user-info__job');
-const clickRenamePopupEdit = document.querySelector('button.popup-edit__button');
-const formEditNameErrorMessage = document.querySelector('popup-edit__form');
-clickRenamePopupEdit.addEventListener('click', function(event) {
-    event.preventDefault();
-    const validFormName = formEditName.validity;
-    const validFormInfo = formEditInfo.validity;
-    if(validFormInfo.valueMissing || validFormInfo.patternMismatch || validFormName.valueMissing || validFormName.patternMismatch) {
-        setInputAllEvent();
-        clickRenamePopupEdit.classList.toggle('valid-button')
-    } else{
-        newJob.textContent = formEditInfo.value;
-        newName.textContent = formEditName.value;
-        popUpEdit.classList.toggle('popup-edit_is-opened');
-    };
 });
-const messageErrorEditName = document.querySelector('.popup-edit__form__text-message-valid-edit-name');
-const messageErrorEditInfo = document.querySelector('.popup-edit__form__text-message-valid-edit-info');
-function setInputAllEvent() {
-    const input = document.querySelector('input')
-    input.addEventListener('change', funcClickValidEditForm);
+const formEdit = document.forms.edit;
+
+const formEditNameInput = document.forms.edit.editName;
+const formEditInfoInput = document.forms.edit.editInfo;
+
+function isValidate(input) {
+    input.setCustomValidity(""); //устанавливаем свойсво validity.customError в false 
+
+    // если на инпуте есть атрибут required, поле validity.valueMissing будет true / false (заполнено)
+    if (input.validity.valueMissing) {
+      // текст ошибки записываем в inputElem.validationMessage с помощью input.setCustomValidity()
+      input.setCustomValidity('Это обязательное поле');
+      return false
+    }
+  
+    // если на инпуте есть атрибут minlength, поле validity.tooShort будет true / false (достигнута мин. длина)
+    if (input.validity.tooShort || input.validity.tooLong) {
+      input.setCustomValidity('Должно быть от 2 до 30 символов');
+      return false
+    };
+  
+    // если на инпуте есть атрибут type, поле validity.typeMismatch будет true / false (сопадение типа)
+    if (input.validity.typeMismatch && input.type === 'url') {
+      input.setCustomValidity('Здесь должна быть ссылка');
+      return false
+    };
+  
+    return input.checkValidity();
 };
-function funcClickValidEditForm() {
-    console.log('ты хуй')
-}
+
+  function validation(event) {
+    const input = event.target;
+    const errorElem = input.parentNode.querySelector(`#${input.id}-error`);
+    if (!isValidate(input)) {
+        errorElem.textContent = input.validationMessage;
+    } else{
+        errorElem.textContent = '';
+    }
+  };
+
+  formEditNameInput.addEventListener('change', validation);
+  formEditInfoInput.addEventListener('change', validation);
+
+const formNewCard = document.forms.new;
+const formNewCardNameInput = formNewCard.newCardName;
+const formNewCardUrlInput = formNewCard.newCardLink;
+
+formNewCardNameInput.addEventListener('change', validation);
+formNewCardUrlInput.addEventListener('change', validation);
+

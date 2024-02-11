@@ -29,8 +29,10 @@
         <img src="./images/close.svg" alt="" class="popup__close">
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="new">
-            <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Название">
-            <input type="text" name="link" class="popup__input popup__input_type_link-url" placeholder="Ссылка на картинку">
+            <input type="text" id="newCardName" class="popup__input popup__input_type_name" placeholder="Название"  required maxlength="30" minlength="2">
+            <p id="newCardName-error" class="popup__name-error-message"></p>
+            <input type="url" id="newCardLink" class="popup__input popup__input_type_link-url" placeholder="Ссылка на картинку" required>
+            <p id="newCardLink-error" class="popup__link-error-message"></p>
             <button type class="button popup__button">+</button>
         </form>
       </div>
@@ -40,11 +42,11 @@
         <img src="./images/close.svg" alt="" class="popup-edit__close">
         <h3 class="popup-edit__title">Редактировать профиль</h3>
         <form class="popup-edit__form" name="edit">
-            <input type="text" name="editName" class="popup-edit__input popup__input_type_edit-name" placeholder="Имя" pattern=".{2,30}" required >
-            <p class="popup-edit__form__text-message-valid-edit-name"></p>
-            <input type="text" name="editInfo" class="popup-edit__input popup__input_type_edit-info" placeholder="О себе" pattern=".{2,30}" required >
-            <p class="popup-edit__form__text-message-valid-edit-info"></p>
-            <button type class="button popup-edit__button">Сохранить</button>
+            <input type="text" id="editName" class="popup-edit__input popup__input_type_edit-name" placeholder="Имя" required maxlength="30" minlength="2">
+            <p id="editName-error" class="popup-edit__form__text-message-valid-edit-name"></p>
+            <input type="text" id="editInfo" class="popup-edit__input popup__input_type_edit-info" placeholder="О себе" required maxlength="30" minlength="2">
+            <p id="editInfo-error" class="popup-edit__form__text-message-valid-edit-info"></p>
+            <button type class="button popup-edit__button">+</button>
         </form>
       </div>
     </div>
