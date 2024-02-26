@@ -3,6 +3,18 @@
   height: 50px;
   border: 1px solid rgba(0, 0, 0, .2);
   margin-top: 48px;
-  color: rgba(0, 0, 0, .2);
+  background-color: black;
+  color: white;
   font-size: 36px;
 }
+.popup__button:hover {
+  border-radius: 3px;
+  outline-color: none;
+  opacity: 1;
+  transition: .2s;
+}
+.popup__button:disabled {
+  cursor: default;
+  color: black;
+  background-color: white;
+};

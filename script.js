@@ -94,6 +94,9 @@ userInfoButtonClose.addEventListener('click', function(event) {
 
 const formName = document.forms.new.name;
 const formLink = document.forms.new.link;
+const formNewCard = document.forms.new;
+const formNewCardNameInput = formNewCard.newCardName;
+const formNewCardUrlInput = formNewCard.newCardLink;
 const newCardSubmitButton = document.querySelector('.button.popup__button');
 newCardSubmitButton.addEventListener('click', function(event) {
     event.preventDefault();
@@ -101,10 +104,25 @@ newCardSubmitButton.addEventListener('click', function(event) {
     popUpNew.classList.toggle('popup_is-opened');
 });
 
-const editButtonOpen = document.querySelector('.user-info__button-edit');
+const formEdit = document.forms.edit;
+const formEditNameInput = formEdit.editName;
+const formEditInfoInput = formEdit.editInfo;
+const formEditSubmitButton = formEdit.editSubmitButton;
+formEditSubmitButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    const userInfoNameValue = document.querySelector('.user-info__name');
+    const userInfoJobValue = document.querySelector('.user-info__job');
+    userInfoNameValue.textContent = formEditNameInput.value;
+    userInfoJobValue.textContent = formEditInfoInput.value;
+    popUpEdit.classList.toggle('popup-edit_is-opened');
+    
+})
+const editButtonOpen = document.querySelector('button.edit__button');
 const popUpEdit = document.querySelector('.popup-edit');
 editButtonOpen.addEventListener('click', function(event) {
     popUpEdit.classList.add('popup-edit_is-opened');
+    formEditNameInput.value = document.querySelector('.user-info__name').textContent;
+    formEditInfoInput.value = document.querySelector('.user-info__job').textContent;
 });
 const editButtonClose = document.querySelector('.popup-edit__close');
 editButtonClose.addEventListener('click', function (event) {
@@ -116,10 +134,20 @@ const popupImage = document.querySelector('.popup-image');
 popupImageButtonClose.addEventListener('click', function funcListener(event) {
     popupImage.classList.toggle('popup-image_is-opened');
 });
-const formEdit = document.forms.edit;
 
-const formEditNameInput = document.forms.edit.editName;
-const formEditInfoInput = document.forms.edit.editInfo;
+function handlerInputForm(event) { 
+    const submit = event.target.parentNode.querySelector('.button');
+    submit.removeAttribute('disabled');
+    const [...inputs] = event.target.parentNode.elements; // превращаем итератор(итерируемый объект) в массив
+    validation(event); // проверяем поле на валидность и выводим ошибку если не валидно.
+  
+  
+    if (inputs.every(isValidate)) { // если каждый инпут формы вернул true, то включаем кнопку в противном случае выключаем
+      setSubmitButtonState(submit, true);
+    } else {
+      setSubmitButtonState(submit, false);
+    }
+}
 
 function isValidate(input) {
     input.setCustomValidity(""); //устанавливаем свойсво validity.customError в false 
@@ -146,7 +174,7 @@ function isValidate(input) {
     return input.checkValidity();
 };
 
-  function validation(event) {
+function validation(event) {
     const input = event.target;
     const errorElem = input.parentNode.querySelector(`#${input.id}-error`);
     if (!isValidate(input)) {
@@ -154,15 +182,20 @@ function isValidate(input) {
     } else{
         errorElem.textContent = '';
     }
-  };
+};
 
-  formEditNameInput.addEventListener('change', validation);
-  formEditInfoInput.addEventListener('change', validation);
+function setSubmitButtonState(button, state) {
+    if (state) {
+        button.disabled = 0;
+        button.removeAttribute('disabled');
+    } else {
+        button.setAttribute('disabled', '');
+        button.disabled = 1;
+    }
+    
+  }
 
-const formNewCard = document.forms.new;
-const formNewCardNameInput = formNewCard.newCardName;
-const formNewCardUrlInput = formNewCard.newCardLink;
-
-formNewCardNameInput.addEventListener('change', validation);
-formNewCardUrlInput.addEventListener('change', validation);
-
+formEditNameInput.addEventListener('input', handlerInputForm);
+formEditInfoInput.addEventListener('input', handlerInputForm);
+formNewCardNameInput.addEventListener('input', handlerInputForm);
+formNewCardUrlInput.addEventListener('input', handlerInputForm);

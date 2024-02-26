@@ -6,4 +6,16 @@
   color: white;
   font-size: 36px;
   background-color: black;
-}
+  font-size: 20px;
+};
+.popup-edit__button:hover {
+  border-radius: 3px;
+  outline-color: none;
+  opacity: 1;
+  transition: .2s;
+};
+.popup-edit__button:disabled {
+  cursor: default;
+  color: black;
+  background-color: white;
+};
