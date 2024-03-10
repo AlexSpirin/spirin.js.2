@@ -13,6 +13,7 @@
 @import url(../blocks/popup-image/popup-image.css);
 @import url(../pages/error-message.css);
 @import url(../pages/popup__input.css);
+@import url(../pages/popup__button.css);
 
 body {
   background-color: #000;

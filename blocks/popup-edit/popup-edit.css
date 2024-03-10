@@ -2,7 +2,6 @@
 @import url(./__close/popup-edit__close.css);
 @import url(./__title/popup-edit__title.css);
 @import url(./__form/popup-edit__form.css);
-@import url(./__button/popup-edit__button.css);
 @import url(./_is-opened/popup-edit_is-opened.css);
 
 .popup-edit {

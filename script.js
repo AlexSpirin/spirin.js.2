@@ -92,15 +92,13 @@ userInfoButtonClose.addEventListener('click', function(event) {
     popUpNew.classList.toggle('popup_is-opened');
 });
 
-const formName = document.forms.new.name;
-const formLink = document.forms.new.link;
 const formNewCard = document.forms.new;
 const formNewCardNameInput = formNewCard.newCardName;
 const formNewCardUrlInput = formNewCard.newCardLink;
 const newCardSubmitButton = document.querySelector('.button.popup__button');
 newCardSubmitButton.addEventListener('click', function(event) {
     event.preventDefault();
-    createNewCard(formName.value, formLink.value);
+    createNewCard(formNewCardNameInput.value, formNewCardUrlInput.value);
     popUpNew.classList.toggle('popup_is-opened');
 });
 
@@ -115,14 +113,20 @@ formEditSubmitButton.addEventListener('click', function(event) {
     userInfoNameValue.textContent = formEditNameInput.value;
     userInfoJobValue.textContent = formEditInfoInput.value;
     popUpEdit.classList.toggle('popup-edit_is-opened');
-    
-})
+});
+function errorResetEdit () {
+    const editNameError = document.getElementById('editName-error');
+    const editInfoError = document.getElementById('editInfo-error');
+    editNameError.textContent = '';
+    editInfoError.textContent = '';
+}
 const editButtonOpen = document.querySelector('button.edit__button');
 const popUpEdit = document.querySelector('.popup-edit');
 editButtonOpen.addEventListener('click', function(event) {
     popUpEdit.classList.add('popup-edit_is-opened');
     formEditNameInput.value = document.querySelector('.user-info__name').textContent;
     formEditInfoInput.value = document.querySelector('.user-info__job').textContent;
+    errorResetEdit();
 });
 const editButtonClose = document.querySelector('.popup-edit__close');
 editButtonClose.addEventListener('click', function (event) {
@@ -135,7 +139,7 @@ popupImageButtonClose.addEventListener('click', function funcListener(event) {
     popupImage.classList.toggle('popup-image_is-opened');
 });
 
-function handlerInputForm(event) { 
+function handlerInputForm(event) {
     const submit = event.target.parentNode.querySelector('.button');
     submit.removeAttribute('disabled');
     const [...inputs] = event.target.parentNode.elements; // превращаем итератор(итерируемый объект) в массив
